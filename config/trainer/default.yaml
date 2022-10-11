@@ -1,0 +1,19 @@
+_target_: pytorch_lightning.Trainer
+
+gpus: -1
+
+min_epochs: 1
+max_epochs: 12
+
+# number of validation steps to execute at the beginning of the training
+# num_sanity_val_steps: 0
+
+# ckpt path
+resume_from_checkpoint: null
+
+# Other Config
+precision: 16
+#overfit_batches: 10
+gradient_clip_val: 0.1
+#fast_dev_run: True
+default_root_dir:  ${original_work_dir}/checkpoints_/${name}

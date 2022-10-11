@@ -1,0 +1,38 @@
+# TODO : Look why it doesn't work https://github.com/Erlemar/pytorch_tempest/blob/master/conf/optimizer/adamw.yaml
+_target_: models.fast_detr.FastDETR
+num_queries: ${default_hp.num_queries}
+num_classes: ${default_hp.num_classes}
+num_decoder_stack: ${default_hp.num_decoder_stack}
+num_encoder_stack: ${default_hp.num_encoder_stack}
+hidden_dim: ${default_hp.hidden_dim} 
+multiscale: ${default_hp.multiscale}
+masks: ${default_hp.masks}
+
+backbone:
+    _target_: models.backbone.build_backbone
+    lr_backbone: 1e-5
+    position_embedding: 'sine'
+    hidden_dim: ${default_hp.hidden_dim}
+    multiscale: False
+    masks: False
+    backbone: 'resnet50'
+    dilation: False
+
+transformer:
+    _target_: models.transformer.build_transformer
+    multiscale: False
+    hidden_dim: ${default_hp.hidden_dim}
+    num_queries: ${default_hp.num_queries}
+    enc_layers: ${default_hp.num_encoder_stack}
+    dec_layers: ${default_hp.num_decoder_stack}
+    dim_feedforward: ${default_hp.dim_feedforward}
+    nheads: ${default_hp.nheads}
+    dropout: ${default_hp.dropout}
+    smca: False
+    activation: "relu"
+
+matcher:
+    _target_: models.matcher.build_matcher
+    set_cost_class:  1
+    set_cost_bbox: 1
+    set_cost_giou:  1

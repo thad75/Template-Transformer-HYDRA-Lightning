@@ -1,0 +1,2 @@
+_target_: dataloader.COCODataModule
+batch_size: 5
